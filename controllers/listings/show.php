@@ -13,4 +13,6 @@ $params = [
 // Use a placeholdet and add params array as second argument
 $listing = $db->query('SELECT * FROM listings WHERE id = :id', $params)->fetch();
 
-inspect($listing);
+loadView('listings/show', [
+    'listing' => $listing,
+]);
