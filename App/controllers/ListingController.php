@@ -44,9 +44,9 @@ class ListingController
      * 
      * @return void
      */
-    public function show()
+    public function show($params)
     {
-        $id = $_GET['id'];
+        $id = $params['id'];
 
         $params = [
             'id' => $id,
