@@ -3,15 +3,10 @@
 use Framework\Router;
 use Framework\Database;
 
+session_start();
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../helpers.php';
 
-// spl_autoload_register(function ($class) {
-//     $path = basePath('Framework/' . $class . '.php');
-//     if (file_exists($path)) {
-//         require $path;
-//     };
-// });
 
 $router = new Router();
 
