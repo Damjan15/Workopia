@@ -80,7 +80,6 @@ class ListingController
         // Filter the POST data to include only allowed fields
         $newListingData = array_intersect_key($_POST, array_flip($allowedFields));
 
-        // This is hardcoded for now
         $newListingData['user_id'] = Session::get('user')['id'];
 
         // Sanitize the data
@@ -124,7 +123,7 @@ class ListingController
             $values = implode(', ', $values);
             $query = "INSERT INTO listings ({$fields}) VALUES ({$values})";
             $this->db->query($query, $newListingData);
-            $_SESSION['success_message'] = 'Listing created successfully!';
+            Session::set('success_message', 'Listing created successfully');
 
             redirect('/listings');
         }
@@ -153,14 +152,14 @@ class ListingController
 
         // Authorization
         if (!Authorization::isOwner($listing->user_id)) {
-            $_SESSION['error_message'] = "You are not authorized to delete this listing";
+            Session::set('error_message', 'You are not authorized to edit this listing');
 
             return redirect("/listing/{$id}");
         }
 
         $this->db->query('DELETE FROM listings WHERE id = :id', $params);
 
-        $_SESSION['success_message'] = 'Listing deleted successfully';
+        Session::set('success_message', 'Listing deleted successfully');
 
         redirect('/listings');
     }
@@ -254,7 +253,7 @@ class ListingController
             $updateValues['id'] = $id;
             $this->db->query($updateQuery, $updateValues);
 
-            $_SESSION['success_message'] = 'Listing updated successfully';
+            Session::set('success_message', 'Listing updated');
 
             redirect('/listing/' . $id);
         }
