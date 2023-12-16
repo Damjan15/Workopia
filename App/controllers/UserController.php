@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Framework\Database;
+use Framework\Session;
 use Framework\Validation;
 
 class UserController
@@ -116,13 +117,13 @@ class UserController
         // Get the user id
         $userId = $this->db->conn->lastInsertId();
 
-        // inspectAndDie([
-        //     'id' => $userId,
-        //     'name' => $name,
-        //     'email' => $email,
-        //     'city' => $city,
-        //     'state' => $state,
-        // ]);
+        Session::set('user', [
+            'id' => $userId,
+            'name' => $name,
+            'email' => $email,
+            'city' => $city,
+            'state' => $state,
+        ]);
 
         redirect('/listings');
     }

@@ -2,11 +2,13 @@
 
 use Framework\Router;
 use Framework\Database;
+use Framework\Session;
 
-session_start();
 require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../helpers.php';
 
+Session::start();
+
+require __DIR__ . '/../helpers.php';
 
 $router = new Router();
 
