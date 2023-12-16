@@ -10,14 +10,16 @@
                 Back To Listings
             </a>
             <div class="flex space-x-4 ml-4">
-                <a href="/listings/edit/<?php echo $listing->id; ?>" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">Edit</a>
-                <!-- Delete Form -->
-                <form method="POST" action="/listings/delete/<?php echo $listing->id; ?>">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">Delete</button>
-                </form>
-                <!-- End Delete Form -->
+                <?php if (Framework\Authorization::isOwner($listing->user_id)) : ?>
+                    <a href="/listings/edit/<?php echo $listing->id; ?>" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">Edit</a>
+                    <!-- Delete Form -->
+                    <form method="POST" action="/listings/delete/<?php echo $listing->id; ?>">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">Delete</button>
+                    </form>
+                    <!-- End Delete Form -->
             </div>
+        <?php endif; ?>
         </div>
 
         <div class="p-4">
