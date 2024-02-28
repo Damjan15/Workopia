@@ -38,6 +38,17 @@ function inspectAndDie($value)
     echo '</pre>';
 }
 
+/**
+ * Format Salary
+ * 
+ * @param string $salary
+ * @return string $formattedSalary
+ */
+function formatSalary($salary)
+{
+    return "$" . number_format(floatval($salary));
+}
+
 
 /**
  * Load a View
