@@ -46,12 +46,13 @@ function inspectAndDie($value)
  * @param array $data
  * @return void
  */
-function loadView($name)
+function loadView($name, $data = [])
 {
     $viewPath = basePath("views/{$name}.view.php");
 
     // Make sure path exists
     if (file_exists($viewPath)) {
+        extract($data);
         require $viewPath;
     } else {
         echo "View '{$name}' not found.";
@@ -65,12 +66,13 @@ function loadView($name)
  * @param array $data
  * @return void
  */
-function loadPartial($name)
+function loadPartial($name, $data = [])
 {
     $partialPath = basePath("views/partials/{$name}.php");
 
     // Make sure path exists
     if (file_exists($partialPath)) {
+        extract($data);
         require $partialPath;
     } else {
         echo "Partial '{$name}' not found.";
