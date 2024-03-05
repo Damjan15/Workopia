@@ -2,8 +2,6 @@
 
 namespace Framework;
 
-use App\Controllers\ErrorController;
-
 class Validation
 {
     /**
