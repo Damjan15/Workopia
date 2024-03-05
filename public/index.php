@@ -3,6 +3,7 @@
 use Framework\Router;
 use Framework\Database;
 
+session_start();
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../helpers.php';
 
