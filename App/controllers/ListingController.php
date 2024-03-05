@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Framework\Database;
+use Framework\Validation;
 
 class ListingController
 {
@@ -63,5 +64,21 @@ class ListingController
         loadView('listings/show', [
             'listing' => $listing,
         ]);
+    }
+
+    /**
+     * Store a listing
+     */
+    public function store()
+    {
+        $allowedFields = ['title', 'description', 'salary', 'tags', 'company', 'address', 'city', 'state', 'phone', 'email', 'requirements', 'benefits'];
+
+        // Filter the POST data to include only allowed fields
+        $newListingData = array_intersect_key($_POST, array_flip($allowedFields));
+
+        $newListingData['user_id'] = 1;
+
+        // Sanitize the data
+        $newListingData = array_map('sanitize', $newListingData);
     }
 }

@@ -89,3 +89,14 @@ function loadPartial($name, $data = [])
         echo "Partial '{$name}' not found.";
     }
 }
+
+/**
+ * Sanitize data
+ * 
+ * @param string $dirty
+ * @return string
+ */
+function sanitize($dirty)
+{
+    return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
+}
