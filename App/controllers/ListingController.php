@@ -184,4 +184,72 @@ class ListingController
             'listing' => $listing,
         ]);
     }
+
+    /**
+     * Update a listing
+     * 
+     * @param array @params
+     * @return void
+     */
+    public function update($params)
+    {
+        $id = $params['id'];
+
+        $params = [
+            'id' => $id,
+        ];
+
+        $listing = $this->db->query('SELECT * FROM listings WHERE id = :id', $params)->fetch();
+
+        if (!$listing) {
+            ErrorController::notFound('Listing not found');
+            return;
+        }
+
+        $allowedFields = ['title', 'description', 'salary', 'tags', 'company', 'address', 'city', 'state', 'phone', 'email', 'requirements', 'benefits'];
+
+        $updateValues = [];
+
+        foreach ($allowedFields as $field) {
+            if (isset($_POST[$field])) {
+                $updateValues[$field] = $_POST[$field];
+            }
+        }
+
+        $updateValues = array_map('sanitize', $updateValues);
+
+        // Validate required fields
+        $requiredFields = ['title', 'description', 'email', 'city', 'state'];
+
+        $errors = [];
+        foreach ($requiredFields as $field) {
+            if (empty($updateValues[$field]) || !Validation::string($updateValues[$field])) {
+                $errors[$field] = ucfirst($field) . ' is required';
+            }
+        }
+
+        if (!empty($errors)) {
+            loadView('listings/edit', [
+                'listing' => $listing,
+                'errors' => $errors,
+            ]);
+            exit;
+        } else {
+            $updateFields = [];
+            foreach (array_keys($updateValues) as $field) {
+                $updateFields[] = "$field = :$field";
+            }
+            $updateFields = implode(', ', $updateFields);
+
+            $updateQuery = "UPDATE listings SET $updateFields WHERE id = :id";
+
+            // Execute the update query
+            $updateValues['id'] = $id;
+            $this->db->query($updateQuery, $updateValues);
+
+            $_SESSION['success_message'] = 'Listing updated successfully';
+
+            redirect('/listings/' . $id);
+        }
+    }
 }
