@@ -8,9 +8,9 @@
     <?php loadPartial('errors', [
       'errors' => $errors ?? [],
     ]); ?>
-    <form>
+    <form action="/auth/login" method="POST">
       <div class="mb-4">
-        <input type="email" name="email" placeholder="Email Address" class="w-full px-4 py-2 border rounded focus:outline-none" />
+        <input type="email" name="email" placeholder="Email Address" class="w-full px-4 py-2 border rounded focus:outline-none" value="<?php echo $user['email'] ?? '' ?>" />
       </div>
       <div class="mb-4">
         <input type="password" name="password" placeholder="Password" class="w-full px-4 py-2 border rounded focus:outline-none" />
