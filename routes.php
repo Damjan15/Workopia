@@ -11,4 +11,5 @@ $router->get('/listings/edit/{id}', 'ListingController@edit');
 $router->put('/listings/{id}', 'ListingController@update');
 
 $router->get('/auth/register', 'UserController@create');
+$router->post('/auth/register', 'UserController@store');
 $router->get('/auth/login', 'UserController@login');
