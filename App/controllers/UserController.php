@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Framework\Database;
 use Framework\Validation;
+use Framework\Session;
 
 class UserController
 {
@@ -115,7 +116,7 @@ class UserController
         // Get the user id
         $userId = $this->db->conn->lastInsertId();
 
-        inspectAndDie([
+        Session::set('user', [
             'id' => $userId,
             'name' => $name,
             'email' => $email,

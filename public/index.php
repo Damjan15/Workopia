@@ -1,10 +1,12 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
 
 use Framework\Router;
 use Framework\Database;
+use Framework\Session;
 
-session_start();
-require __DIR__ . '/../vendor/autoload.php';
+Session::start();
+
 require __DIR__ . '/../helpers.php';
 
 require basePath('Framework/Router.php');
