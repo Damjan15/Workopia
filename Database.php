@@ -33,10 +33,16 @@ class Database
      * @return PDOStatement the PDO statement object
      * @throws Exception If the execution failes
      */
-    public function query($query)
+    public function query($query, $params = [])
     {
         try {
             $sth = $this->conn->prepare($query);
+
+            // Bind named parameters
+            foreach ($params as $param => $value) {
+                $sth->bindValue(':' . $param, $value);
+            }
+
             $sth->execute();
 
             return $sth;
