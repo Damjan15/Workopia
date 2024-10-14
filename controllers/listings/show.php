@@ -1,9 +1,10 @@
 <?php
 
+require basePath('Database.php');
 $config = require basePath('config/db.php');
 $db = new Database($config);
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?? '';
 
 // Create params arrays
 $params = [
@@ -12,6 +13,9 @@ $params = [
 
 
 // Use a placeholder and add params array as second arguments
-$listing = $db->query('SELECT * FROM listings WHERE id = :id = ' . $params)->fetch();
+$listing = $db->query('SELECT * FROM listings WHERE id = :id', $params)->fetch();
 
-inspect($listing);
+// inspect($listing);
+loadView('listings/show', [
+    'listing' => $listing,
+]);
