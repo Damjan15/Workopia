@@ -1,0 +1,16 @@
+{
+    "name": "damjan15/workopia",
+    "description": "Job Listing application",
+    "authors": [
+        {
+            "name": "Damjan Stamenov",
+            "email": "stamenovdamjan5@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "Framework/",
+            "App\\": "App/"
+        }
+    }
+}
