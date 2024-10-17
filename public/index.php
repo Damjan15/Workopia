@@ -1,9 +1,12 @@
 <?php
-session_start();
-
-use Framework\Router;
 
 require __DIR__ . '/../vendor/autoload.php';
+
+use Framework\Router;
+use Framework\Session;
+
+Session::start();
+
 require __DIR__ . '/../helpers.php';
 
 require basePath('Framework/Router.php');
