@@ -14,7 +14,7 @@ use Framework\Session;
                     <div>
                         Welcome <?php echo Session::get('user')['name']; ?>
                     </div>
-                    <form>
+                    <form method="post" action="/auth/logout">
                         <button type="submit" class="text-white inline hover:underline">
                             Logout
                         </button>
