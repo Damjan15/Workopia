@@ -9,5 +9,5 @@
     <div class="message bg-red-100 p-3 my-3">
         <?php echo $_SESSION['error_message']; ?>
     </div>
-    <?php unset($_SESSION['error']); ?>
+    <?php unset($_SESSION['error_message']); ?>
 <?php endif; ?>
