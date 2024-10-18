@@ -142,4 +142,68 @@ class UserController
 
         redirect('/');
     }
+
+    /**
+     * Authenticate the user
+     * 
+     * @return void
+     */
+    public function authenticate()
+    {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $errors = [];
+
+        // Validate email
+        if (!Validation::email($email)) {
+            $errors['email'] = 'Please enter a valid email address';
+        }
+
+        // Validate password length
+        if (!Validation::string($password, 6, 50)) {
+            $errors['password'] = 'Password must be at least 6 characters long';
+        }
+
+        if (!empty($errors)) {
+            loadView('users/login', [
+                'errors' => $errors,
+            ]);
+            exit;
+        }
+
+        // Check if account exists
+        $params = [
+            'email' => $email,
+        ];
+
+        $user = $this->db->query('SELECT * FROM users WHERE email = :email', $params)->fetch();
+
+        if (!$user) {
+            $errors['email'] = 'Incorrect credentials';
+            loadView('users/login', [
+                'errors' => $errors,
+            ]);
+            exit;
+        }
+
+        // Check if password is correct
+        if (!password_verify($password, $user->password)) {
+            $errors['email'] = 'Incorrect credentials';
+            loadView('users/login', [
+                'errors' => $errors,
+            ]);
+            exit;
+        }
+
+        // Set the user session
+        Session::set('user', [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'city' => $user->city,
+            'state' => $user->state,
+        ]);
+
+        redirect('/listings');
+    }
 }
